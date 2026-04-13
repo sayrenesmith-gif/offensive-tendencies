@@ -40,9 +40,8 @@ if uploaded:
     st.dataframe(df, use_container_width=True, height=350)
 
     st.subheader("Formation Tendencies")
-    form = df[df["OFF FORM"].ne("")]
 
-//groupby("OFF FORM").agg(
+form = df[df["OFF FORM"].ne("")].groupby("OFF FORM").agg(
         plays=("OFF FORM", "size"),
         runs=("is_run", "sum"),
         passes=("is_pass", "sum")
