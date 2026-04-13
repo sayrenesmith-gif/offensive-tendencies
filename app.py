@@ -49,7 +49,7 @@ form["run_pct"] = (form["runs"] / form["plays"] * 100).round(1)
 form["pass_pct"] = (form["passes"] / form["plays"] * 100).round(1)
 st.dataframe(form.sort_values("plays", ascending=False), use_container_width=True)
 
-    st.subheader("Down and Distance")
+st.subheader("Down and Distance")
     dd = df.groupby(["DN", "dist_bucket"]).agg(
         plays=("PLAY #", "size"),
         runs=("is_run", "sum"),
