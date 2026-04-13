@@ -40,8 +40,7 @@ if uploaded:
     st.dataframe(df, use_container_width=True, height=350)
 
     st.subheader("Formation Tendencies")
-
-form = df[df["OFF FORM"].ne("")].groupby("OFF FORM").agg(
+    form = df[df["OFF FORM"].ne("")].groupby("OFF FORM").agg(
         plays=("OFF FORM", "size"),
         runs=("is_run", "sum"),
         passes=("is_pass", "sum")
@@ -50,15 +49,15 @@ form = df[df["OFF FORM"].ne("")].groupby("OFF FORM").agg(
     form["pass_pct"] = (form["passes"] / form["plays"] * 100).round(1)
     st.dataframe(form.sort_values("plays", ascending=False), use_container_width=True)
 
-st.subheader("Formation Tendencies")
-form = df[df["OFF FORM"].ne("")].groupby("OFF FORM").agg(
-    plays=("OFF FORM", "size"),
-    runs=("is_run", "sum"),
-    passes=("is_pass", "sum")
-).reset_index()
-form["run_pct"] = (form["runs"] / form["plays"] * 100).round(1)
-form["pass_pct"] = (form["passes"] / form["plays"] * 100).round(1)
-st.dataframe(form.sort_values("plays", ascending=False), use_container_width=True)
+    st.subheader("Down and Distance")
+    dd = df.groupby(["DN", "dist_bucket"]).agg(
+        plays=("PLAY #", "size"),
+        runs=("is_run", "sum"),
+        passes=("is_pass", "sum")
+    ).reset_index()
+    dd["run_pct"] = (dd["runs"] / dd["plays"] * 100).round(1)
+    dd["pass_pct"] = (dd["passes"] / dd["plays"] * 100).round(1)
+    st.dataframe(dd.sort_values(["DN", "dist_bucket"]), use_container_width=True)
 
     st.download_button(
         "Download cleaned CSV",
