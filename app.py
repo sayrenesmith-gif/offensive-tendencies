@@ -7,11 +7,11 @@ st.write("Upload your Excel file to chart offensive tendencies by formation, dow
 
 @st.cache_data
 def load_workbook(file):
-xl = pd.ExcelFile(file)
-frames = []
-for sh in xl.sheet_names:
-df = pd.read_excel(file, sheet_name=sh)
-df.columns = [str(c).strip() for c in df.columns]
+    xl = pd.ExcelFile(file)
+    frames = []
+    for sh in xl.sheet_names:
+        df = pd.read_excel(file, sheet_name=sh)
+        df.columns
 df["sheet"] = sh
 frames.append(df)
 plays = pd.concat(frames, ignore_index=True)
